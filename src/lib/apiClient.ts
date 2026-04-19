@@ -18,10 +18,10 @@ type ApiOptions = RequestInit & {
  * 3. accessToken 만료 시 refresh 시도
  * 4. refresh 실패 or 인증 에러면 세션 종료
  */
-export async function apiClient(
+export async function apiClient<T = unknown>(
   url: string,
   options: ApiOptions = {}
-) {
+): Promise<T> {
   const { auth = false, ...fetchOptions } = options;
 
   /**
@@ -48,8 +48,9 @@ if (auth && !token) {
   /**
    * headers 구성
    */
+  const isFormData = options.body instanceof FormData;
   const headers: Record<string, string> = {
-    "Content-Type": "application/json",
+		...(isFormData ? {} : { "Content-Type": "application/json" }), // ✅ FormData일 땐 제거
     ...(fetchOptions.headers as Record<string, string> || {}),
   };
 
