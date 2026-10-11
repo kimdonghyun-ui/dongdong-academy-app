@@ -1,22 +1,27 @@
-"use client";
+"use client"
 
-import { useEffect } from "react";
-import { useAuthStore } from "@/store/authStore";
-import FullScreenLoader from "@/components/FullScreenLoader";
+import { useEffect } from "react"
+
+import FullScreenLoader from "@/components/FullScreenLoader"
+import { useAuthStore } from "@/store/authStore"
+import { useThemeStore } from "@/store/themeStore"
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-  const restoreSession = useAuthStore((s) => s.restoreSession);
-const authReady = useAuthStore((s) => s.authReady);
+  const restoreSession = useAuthStore((s) => s.restoreSession)
+  const authReady = useAuthStore((s) => s.authReady)
+  const hydrateTheme = useThemeStore((s) => s.hydrateTheme)
+
   useEffect(() => {
-    restoreSession();
-  }, [restoreSession]);
+    hydrateTheme()
+  }, [hydrateTheme])
 
+  useEffect(() => {
+    restoreSession()
+  }, [restoreSession])
 
-  // ⛔️ 렌더 차단은 Hook 이후에
   if (!authReady) {
-    return <FullScreenLoader />;
+    return <FullScreenLoader />
   }
 
-  return <>{children}</>;
-
+  return <>{children}</>
 }

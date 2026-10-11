@@ -1,14 +1,9 @@
-// 공용 export 모음
-
-export * from './auth'; //로그인/회원가입
-export * from './user'; //유저 도메인
-export * from './api'; //공통 API 응답
-export * from './strapi'; //Strapi 공통 구조
-export * from './upload'; //
-// export * from './user';
-// export * from './api';
-// export * from './meetFriend';
-// export * from './media';
-// export * from './comment';
-// export * from './post';
-// export * from './strapi';
+/**
+ * 타입 모음
+ * 다른 파일에서는 `@/type` 으로 import 하면 된다.
+ */
+export * from "./auth"
+export * from "./user"
+export * from "./strapi"
+export * from "./upload"
+export * from "./academy"

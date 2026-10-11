@@ -1,24 +1,25 @@
 "use client";
 
-import { useEffect } from "react";
-import { useUserStore } from "@/store/userStore";
 import { useAuthStore } from "@/store/authStore";
+import type { User } from "@/type";
 
 export default function HomePage() {
   // ✅ 필요한 것만 selector로 구독 (리렌더 최소화)
   const authReady = useAuthStore((s) => s.authReady);
 
-  const users = useUserStore((s) => s.users);
-  const loading = useUserStore((s) => s.loading);
-  const error = useUserStore((s) => s.error);
-  const fetchUsers = useUserStore((s) => s.fetchUsers);
+  // const users = useUserStore((s) => s.users);
+  // const loading = useUserStore((s) => s.loading);
+  // const error = useUserStore((s) => s.error);
+  // const fetchUsers = useUserStore((s) => s.fetchUsers);
 
   // ✅ authReady 된 이후에만 호출 (새로고침 시 순서 안정)
-  useEffect(() => {
-    if (!authReady) return;
-    fetchUsers();
-  }, [authReady, fetchUsers]);
-
+  // useEffect(() => {
+  //   if (!authReady) return;
+  //   fetchUsers();
+  // }, [authReady, fetchUsers]);
+const loading = false;
+const error = null;
+const users: User[] = [];
   return (
     <main className="mx-auto max-w-5xl p-6">
       <h1 className="mb-6 text-2xl font-bold text-gray-900">사용자 목록</h1>
